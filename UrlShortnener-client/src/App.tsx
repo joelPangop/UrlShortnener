@@ -1,9 +1,13 @@
 import React from 'react';
-import './App.css';
+import './index.css';
 import UrlShortenerFormView from "./views/UrlShortenerFormView";
 
 function App() {
-    return <UrlShortenerFormView />;
+    return (
+        <div className="App">
+            <UrlShortenerFormView />
+        </div>
+    );
 }
 
 export default App;
