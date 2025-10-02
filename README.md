@@ -1,6 +1,7 @@
+<h1>URL Shortener</h1>
 
 Le projet backend à savoir UrlShortnener-services étant fait en JAVA spring Boot, peut s'executer facilement avec des IDEs telles que IntelliJ
-Pour le projet Front-end à savoir UrlShortnener-client, on peut l'ouvrir en ligne de commande et exécuter la commande "npm run start"
+Pour le projet Front-end à savoir UrlShortnener-client, on peut l'ouvrir en ligne de commande et exécuter tout d'abord <i>"npm install"</i> pour installer les dépendances car la dossier <b>node_modules</b> n'a pas été mergé ensuite exécuter la commande <i>"npm run start"</i>
 
 Dans la section "1) Raccourcir une URL": 
 * Entrer une url par exemple "https://exemple.com/long/path?x=1".
@@ -23,5 +24,6 @@ Dans la "section 2) Retrouver l’URL originale"
  
 En résumé, il y a 2 moyens de retrouver l'url originale:
 * En cliquant sur le lien de l'URL courte et en entrant le code généré par le raccourcissement de l'URL d'origine.
+
 
 
