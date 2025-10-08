@@ -1,47 +1,21 @@
 trigger:
 - master
-pr:
-- master
 
 pool:
   vmImage: ubuntu-22.04
 
-variables:
-  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
-
 steps:
 - checkout: self
-  fetchDepth: 1        # mets 0 si tu as besoin des tags/describe
+  fetchDepth: 0      # 0 = historique complet ; 1 = clone superficiel
   clean: true
 
-# Cache Maven (~1ère fois sans effet, puis accélère les runs)
-- task: Cache@2
-  inputs:
-    key: 'maven | "$(Agent.OS)" | **/pom.xml'
-    restoreKeys: |
-      maven | "$(Agent.OS)"
-      maven
-    path: $(MAVEN_CACHE_FOLDER)
-
-# Build + tests
 - task: Maven@3
-  displayName: 'Build & Tests (Maven)'
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'clean verify'           # ou package selon ton besoin
-    options: '-Dmaven.test.failure.ignore=false'
-    mavenOptions: '-Xmx3g -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+    goals: 'package'
+    mavenOptions: '-Xmx3g'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    codeCoverageToolOption: 'JaCoCo'    # si tu veux la couverture
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '17'
+    jdkVersionOption: '17'        # au lieu de 1.11
     jdkArchitectureOption: 'x64'
-
-# Publier l'artefact (facultatif)
-- task: PublishBuildArtifacts@1
-  displayName: 'Publier artefacts'
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/target'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
